@@ -22,8 +22,8 @@ History,Higher Level,149,9
 History,Standard Level,95,114
 ITGS,Higher Level,11,47
 ITGS,Standard Level,12,3
-Language A: language and literature,Higher Level,264,5
-Language A: language and literature,Standard Level,383,178
+Language A: L&L,Higher Level,264,5
+Language A: L&L,Standard Level,383,178
 Language A: literature,Higher Level,166,174
 Language A: literature,Standard Level,172,96
 Language B,Higher Level,177,94
@@ -34,10 +34,10 @@ Latin or Classical Greek,Higher Level,5,111
 Latin or Classical Greek,Standard Level,7,5
 Literature and performance,Higher Level,2,7
 Literature and performance,Standard Level,1,2
-Mathematics: analysis and approaches,Higher Level,384,152
-Mathematics: analysis and approaches,Standard Level,255,172
-Mathematics: applications and interpretation,Higher Level,95,45
-Mathematics: applications and interpretation,Standard Level,162,121
+Mathematics: AA,Higher Level,384,152
+Mathematics: AA,Standard Level,255,172
+Mathematics: AI,Higher Level,95,45
+Mathematics: AI,Standard Level,162,121
 Music,Higher Level,13,13
 Music,Standard Level,17,4
 Philosophy,Higher Level,11,11
@@ -46,10 +46,10 @@ Physics,Higher Level,304,131
 Physics,Standard Level,122,66
 Psychology,Higher Level,99,80
 Psychology,Standard Level,76,41
-Social and cultural anthropology,Higher Level,10,7
-Social and cultural anthropology,Standard Level,4,4
-"Sports, exercise and health science",Higher Level,4,5
-"Sports, exercise and health science",Standard Level,5,9
+Soc Anthropol,Higher Level,10,7
+Soc Anthropol,Standard Level,4,4
+SEHS,Higher Level,4,5
+SEHS,Standard Level,5,9
 Theatre,Higher Level,15,10
 Theatre,Standard Level,8,2
 Visual Arts,Higher Level,49,23

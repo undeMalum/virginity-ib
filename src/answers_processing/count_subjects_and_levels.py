@@ -5,7 +5,8 @@ import pandas as pd
 from src.paths.paths import (
     ANSWERS_CSV,
     TOTAL_VIRGINS_SUBJECT_LEVEL,
-    TOTAL_NONVIRGINS_SUBJECT_LEVEL
+    TOTAL_NONVIRGINS_SUBJECT_LEVEL,
+    TOTAL_SUBJECT_LEVELS
 )
 
 df = pd.read_csv(ANSWERS_CSV)
@@ -14,7 +15,7 @@ df = pd.read_csv(ANSWERS_CSV)
 def write_total(virgin: bool, csv_path: Path):
     series_storage = []
     virginity = {False: "No", True: "Yes"}
-    for idx in range(4, 15, 2):
+    for idx in range(4, 17, 2):
         count_subjects = df.loc[df['Virginity'] == virginity[virgin], df.columns[idx:idx + 2]].value_counts()
         series_storage.append(count_subjects)
 
@@ -37,9 +38,18 @@ def write_total(virgin: bool, csv_path: Path):
     print("Processed.")
 
 
+def join_csvs():
+    total_virgins = pd.read_csv(TOTAL_VIRGINS_SUBJECT_LEVEL)
+    total_nonvirgins = pd.read_csv(TOTAL_NONVIRGINS_SUBJECT_LEVEL)
+    joined_virgins_and_nonvirgins = pd.concat([total_virgins, total_nonvirgins["Count"]], axis="columns")
+    cln_names = ["Subject", "Level", "Virgins", "Non-virgins"]
+    joined_virgins_and_nonvirgins.columns = cln_names
+    joined_virgins_and_nonvirgins.to_csv(TOTAL_SUBJECT_LEVELS, mode="a", index=False)
+
+
 if __name__ == "__main__":
-    option = input("V/NV: ")
-    if option == "V":
+    option = input("V/NV/J: ").lower()
+    if option == "j":
         write_total(True, TOTAL_VIRGINS_SUBJECT_LEVEL)
-    elif option == "NV":
         write_total(False, TOTAL_NONVIRGINS_SUBJECT_LEVEL)
+        join_csvs()
