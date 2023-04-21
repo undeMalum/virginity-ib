@@ -43,8 +43,8 @@ def create_pie_chart_subject(subject: str):
     def fill_percentage_and_value(x):
         return f"{x:.1f}%\n({total * x / 100:.0f})"
 
-    total_subject_level = pd.read_csv(ALL_ANSWERS)
-    pie_chart = total_subject_level
+    total_subject = pd.read_csv(ALL_ANSWERS)
+    pie_chart = total_subject.loc[total_subject["Subject"] == subject]
 
     pie_chart_values = [pie_chart.to_dict(orient="list")["Virgins"][0],
                         pie_chart.to_dict(orient="list")["Non-virgins"][0]]
@@ -95,5 +95,5 @@ def create_pie_chart_subject_level(subject: str, level: Levels):
 
 if __name__ == "__main__":
     sub = get_all_subjects(ALL_ANSWERS)
-    create_pie_chart_all()
+    create_pie_chart_subject(sub[9])
     plt.show()

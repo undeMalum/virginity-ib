@@ -17,7 +17,7 @@ def write_total(virgin: bool, dp: DP):
     virginity = {False: "No", True: "Yes"}
     for idx in range(4, 17, 2):
         count_subjects = df.loc[(df['Virginity'] == virginity[virgin]) & (df["Education level"] == dp.value),
-                                df.columns[idx:idx + 2]].value_counts()
+                                df.columns[idx:idx+2]].value_counts()
         series_storage.append(count_subjects)
 
     concatenated_subjects = pd.concat(series_storage).sort_index()

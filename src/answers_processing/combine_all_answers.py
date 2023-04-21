@@ -14,7 +14,14 @@ def count_per_subject(virgin: bool):
     series_storage = []
     virginity = {False: "No", True: "Yes"}
     for idx in range(4, 17, 2):
-        count_subjects = df.loc[df['Virginity'] == virginity[virgin], df.columns[idx]].value_counts()
+        count_subjects = df.loc[
+            (df['Virginity'] == virginity[virgin]) &
+            ~(
+                    ((df[df.columns[idx]] == "ES&S") & (df[df.columns[idx+1]] == "Higher Level")) |
+                    ((df[df.columns[idx]] == "Language ab inito") & (df[df.columns[idx+1]] == "Higher Level"))
+             ),
+            df.columns[idx]].value_counts()
+        print(df.loc[(df[df.columns[idx]] == "ES&S") & (df[df.columns[idx+1]] != "Higher Level"), df.columns[idx+1]])
         series_storage.append(count_subjects)
 
     concatenated_subjects = pd.concat(series_storage).sort_index()
