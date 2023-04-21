@@ -18,10 +18,10 @@ def count_per_subject(virgin: bool):
             (df['Virginity'] == virginity[virgin]) &
             ~(
                     ((df[df.columns[idx]] == "ES&S") & (df[df.columns[idx+1]] == "Higher Level")) |
-                    ((df[df.columns[idx]] == "Language ab inito") & (df[df.columns[idx+1]] == "Higher Level"))
+                    ((df[df.columns[idx]] == "Language ab inito") & (df[df.columns[idx+1]] == "Higher Level")) |
+                    ((df[df.columns[idx]] == "World religions") & (df[df.columns[idx + 1]] == "Higher Level"))
              ),
             df.columns[idx]].value_counts()
-        print(df.loc[(df[df.columns[idx]] == "ES&S") & (df[df.columns[idx+1]] != "Higher Level"), df.columns[idx+1]])
         series_storage.append(count_subjects)
 
     concatenated_subjects = pd.concat(series_storage).sort_index()

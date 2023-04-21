@@ -11,8 +11,8 @@ Dance,Higher Level,3,3
 Dance,Standard Level,1,15
 Design technology,Higher Level,6,8
 Design technology,Standard Level,3,93
-ES&S,Standard Level,54,189
-Economics,Higher Level,102,129
+ES&S,Standard Level,54,129
+Economics,Higher Level,102,189
 Economics,Standard Level,54,48
 Geography,Higher Level,36,40
 Geography,Standard Level,25,32
@@ -22,35 +22,34 @@ History,Higher Level,114,95
 History,Standard Level,47,11
 ITGS,Higher Level,3,12
 ITGS,Standard Level,5,264
-Language A: language and literature,Higher Level,178,383
-Language A: language and literature,Standard Level,174,166
-Language A: literature,Higher Level,96,172
-Language A: literature,Standard Level,94,177
-Language B,Higher Level,115,428
+Language A: L&L,Higher Level,178,383
+Language A: L&L,Standard Level,174,172
+Language A: literature,Standard Level,94,166
+Language A: literature,Higher Level,96,428
+Language B,Higher Level,115,177
 Language B,Standard Level,209,208
-Language ab inito,Standard Level,111,5
+Language ab initio,Standard Level,111,5
 Latin or Classical Greek,Higher Level,5,7
 Latin or Classical Greek,Standard Level,7,2
 Literature and performance,Standard Level,2,1
-Mathematics: analysis and approaches,Higher Level,152,384
-Mathematics: analysis and approaches,Standard Level,172,255
-Mathematics: applications and interpretation,Higher Level,45,95
-Mathematics: applications and interpretation,Standard Level,121,162
-Music,Higher Level,13,13
-Music,Standard Level,4,17
-Philosophy,Higher Level,11,11
+Mathematics: AA,Higher Level,152,384
+Mathematics: AA,Standard Level,172,255
+Mathematics: AI,Higher Level,45,95
+Mathematics: AI,Standard Level,121,162
+Music,Standard Level,4,13
+Music,Higher Level,13,17
 Philosophy,Standard Level,13,8
+Philosophy,Higher Level,11,11
 Physics,Higher Level,131,304
 Physics,Standard Level,66,122
 Psychology,Higher Level,80,99
 Psychology,Standard Level,41,76
-Social and cultural anthropology,Higher Level,7,10
-Social and cultural anthropology,Standard Level,4,4
-"Sports, exercise and health science",Higher Level,5,4
-"Sports, exercise and health science",Standard Level,9,5
+SEHS,Higher Level,5,4
+SEHS,Standard Level,9,5
+Soc Anthropol,Higher Level,7,10
+Soc Anthropol,Standard Level,4,4
 Theatre,Higher Level,10,15
 Theatre,Standard Level,2,8
-Visual Arts,Higher Level,23,49
 Visual Arts,Standard Level,12,24
-World religions,Higher Level,2,2
+Visual Arts,Higher Level,23,49
 World religions,Standard Level,2,5

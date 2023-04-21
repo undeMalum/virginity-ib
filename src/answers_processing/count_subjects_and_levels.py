@@ -17,7 +17,8 @@ def write_total(virgin: bool):
             &
             ~(
                     ((df[df.columns[idx]] == "ES&S") & (df[df.columns[idx + 1]] == "Higher Level")) |
-                    ((df[df.columns[idx]] == "Language ab inito") & (df[df.columns[idx + 1]] == "Higher Level"))
+                    ((df[df.columns[idx]] == "Language ab initio") & (df[df.columns[idx + 1]] == "Higher Level")) |
+                    ((df[df.columns[idx]] == "World religions") & (df[df.columns[idx + 1]] == "Higher Level"))
             )
             ,
             df.columns[idx:idx+2]].value_counts()
@@ -40,7 +41,22 @@ def write_total(virgin: bool):
 def join_csvs():
     total_virgins = write_total(False)
     total_nonvirgins = write_total(True)
-    joined_virgins_and_nonvirgins = pd.concat([total_virgins, total_nonvirgins["Count"]], axis="columns")
+
+    # determined missing subjects + levels in both dataframes
+    missing_subjects_virgins = total_virgins[
+        ~total_virgins[["Subject", "Level"]].isin(total_nonvirgins[["Subject", "Level"]])].dropna()
+    missing_subjects_virgins["Count"] = 0
+    missing_subjects_nonvirgins = total_nonvirgins[
+        ~total_nonvirgins[["Subject", "Level"]].isin(total_virgins[["Subject", "Level"]])].dropna()
+    missing_subjects_nonvirgins["Count"] = 0
+
+    # fill dataframes with missing values
+    filled_total_virgins = pd.concat([total_virgins, missing_subjects_virgins]).sort_values(
+        "Subject").reset_index(drop=True)
+    filled_total_nonvirgins = pd.concat([total_nonvirgins, missing_subjects_nonvirgins]).sort_values(
+        "Subject").reset_index(drop=True)
+
+    joined_virgins_and_nonvirgins = pd.concat([filled_total_virgins, filled_total_nonvirgins["Count"]], axis="columns")
     cln_names = ["Subject", "Level", "Virgins", "Non-virgins"]
     joined_virgins_and_nonvirgins.columns = cln_names
     joined_virgins_and_nonvirgins.to_csv(TOTAL_SUBJECT_LEVELS, mode="a", index=False)
@@ -48,3 +64,4 @@ def join_csvs():
 
 if __name__ == "__main__":
     join_csvs()
+    # print(write_total(True) - write_total(False))

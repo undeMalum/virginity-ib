@@ -1,15 +1,21 @@
 import datetime
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib import pyplot as plt
+from matplotlib.ticker import PercentFormatter
 
 from src.charts.levels import Levels
 from src.paths.paths import PDF, ALL_ANSWERS
-from src.charts.create_bar_charts import create_subject_level_chart, create_all_chart
+from src.charts.create_bar_charts import (
+    create_subject_level_chart,
+    create_all_chart,
+    create_all_chart_percentages,
+    create_subject_level_chart_percentage
+)
 from src.charts.create_pie_charts import (
     create_pie_chart_subject_level,
     create_pie_chart_subject,
     get_all_subjects,
-    create_pie_chart_all
+    create_pie_chart_all,
 )
 
 # Create the PdfPages object to which we will save the pages:
@@ -18,11 +24,15 @@ from src.charts.create_pie_charts import (
 with PdfPages(PDF) as pdf:
     plt.rcParams['text.usetex'] = False
 
+    chart = create_pie_chart_all()
+    pdf.savefig()  # saves the current figure into a pdf page
+    chart.close()
+
     chart = create_all_chart()
     pdf.savefig()  # saves the current figure into a pdf page
     chart.close()
 
-    chart = create_pie_chart_all()
+    chart = create_all_chart_percentages()
     pdf.savefig()  # saves the current figure into a pdf page
     chart.close()
 
@@ -31,13 +41,20 @@ with PdfPages(PDF) as pdf:
         pdf.savefig()  # saves the current figure into a pdf page
         chart.close()
 
+    for level in Levels:
+        chart = create_subject_level_chart_percentage(level)
+        pdf.savefig()  # saves the current figure into a pdf page
+        chart.close()
+
+    only_sl_subject = ("ES&S", "Language ab initio", "World religions")
     subjects = get_all_subjects(ALL_ANSWERS)
     for subject in subjects:
         for level in Levels:
-            chart = create_pie_chart_subject_level(subject, level)
-            if chart is not None:
-                pdf.savefig()  # saves the current figure into a pdf page
-                chart.close()
+            if subject not in only_sl_subject or (subject in only_sl_subject and level != Levels.HIGHER_LEVEL):
+                chart = create_pie_chart_subject_level(subject, level)
+                if chart is not None:
+                    pdf.savefig()  # saves the current figure into a pdf page
+                    chart.close()
         chart = create_pie_chart_subject(subject)
         pdf.savefig()  # saves the current figure into a pdf page
         chart.close()
