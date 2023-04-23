@@ -1,3 +1,6 @@
+from pathlib import Path
+
+import numpy as np
 import pandas as pd
 
 from src.paths.paths import (
@@ -16,9 +19,11 @@ def write_total(virgin: bool):
             (df['Virginity'] == virginity[virgin])
             &
             ~(
+                (
                     ((df[df.columns[idx]] == "ES&S") & (df[df.columns[idx + 1]] == "Higher Level")) |
-                    ((df[df.columns[idx]] == "Language ab initio") & (df[df.columns[idx + 1]] == "Higher Level")) |
-                    ((df[df.columns[idx]] == "World religions") & (df[df.columns[idx + 1]] == "Higher Level"))
+                    ((df[df.columns[idx]] == "Language ab initio") & (df[df.columns[idx + 1]] == "Higher Level"))
+                ) |
+                ((df[df.columns[idx]] == "World religions") & (df[df.columns[idx + 1]] == "Higher Level"))
             )
             ,
             df.columns[idx:idx+2]].value_counts()
@@ -38,30 +43,37 @@ def write_total(virgin: bool):
     return combined_subjects
 
 
-def join_csvs():
+def join_csvs(csv_path: Path):
+    # pd.set_option('display.max_rows', None, 'display.max_columns', None)
     total_virgins = write_total(False)
     total_nonvirgins = write_total(True)
 
-    # determined missing subjects + levels in both dataframes
-    missing_subjects_virgins = total_virgins[
-        ~total_virgins[["Subject", "Level"]].isin(total_nonvirgins[["Subject", "Level"]])].dropna()
-    missing_subjects_virgins["Count"] = 0
-    missing_subjects_nonvirgins = total_nonvirgins[
-        ~total_nonvirgins[["Subject", "Level"]].isin(total_virgins[["Subject", "Level"]])].dropna()
-    missing_subjects_nonvirgins["Count"] = 0
+    # add all missing subjects from nonvirgins to virgins
+    total_virgins_with_subjects_from_nonvirgins = total_virgins[["Subject", "Level"]].merge(
+        total_nonvirgins,
+        on=["Subject", "Level"],
+        how="right",
+    )
 
-    # fill dataframes with missing values
-    filled_total_virgins = pd.concat([total_virgins, missing_subjects_virgins]).sort_values(
-        "Subject").reset_index(drop=True)
-    filled_total_nonvirgins = pd.concat([total_nonvirgins, missing_subjects_nonvirgins]).sort_values(
-        "Subject").reset_index(drop=True)
+    # add all missing subjects from virgins to all
+    all_available_subjects = total_virgins_with_subjects_from_nonvirgins.merge(
+        total_virgins,
+        on=["Subject", "Level"],
+        how="outer"
+    )
 
-    joined_virgins_and_nonvirgins = pd.concat([filled_total_virgins, filled_total_nonvirgins["Count"]], axis="columns")
-    cln_names = ["Subject", "Level", "Virgins", "Non-virgins"]
-    joined_virgins_and_nonvirgins.columns = cln_names
-    joined_virgins_and_nonvirgins.to_csv(TOTAL_SUBJECT_LEVELS, mode="a", index=False)
+    # sort values
+    all_available_subjects = all_available_subjects.sort_values(["Subject", "Level"])
+    # rename columns
+    cln_names = ["Subject", "Level", "Non-virgins", "Virgins"]
+    all_available_subjects.columns = cln_names
+
+    # replace all NaN values with 0
+    all_available_subjects = all_available_subjects.replace(np.nan, 0)
+
+    all_available_subjects.to_csv(csv_path, mode="a", index=False)
 
 
 if __name__ == "__main__":
-    join_csvs()
+    join_csvs(TOTAL_SUBJECT_LEVELS)
     # print(write_total(True) - write_total(False))

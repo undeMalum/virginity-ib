@@ -1,55 +1,56 @@
-Subject,Level,Virgins,Non-virgins
-Biology,Higher Level,152,250
-Biology,Standard Level,63,107
-Business management,Higher Level,58,121
-Business management,Standard Level,37,71
-Chemistry,Higher Level,134,285
-Chemistry,Standard Level,80,154
-Computer science,Higher Level,35,104
-Computer science,Standard Level,15,34
-Dance,Higher Level,3,3
-Dance,Standard Level,1,15
-Design technology,Higher Level,6,8
-Design technology,Standard Level,3,93
-ES&S,Standard Level,54,129
-Economics,Higher Level,102,189
-Economics,Standard Level,54,48
-Geography,Higher Level,36,40
-Geography,Standard Level,25,32
-Global politics,Higher Level,28,14
-Global politics,Standard Level,9,149
-History,Higher Level,114,95
-History,Standard Level,47,11
-ITGS,Higher Level,3,12
-ITGS,Standard Level,5,264
-Language A: L&L,Higher Level,178,383
-Language A: L&L,Standard Level,174,172
-Language A: literature,Standard Level,94,166
-Language A: literature,Higher Level,96,428
-Language B,Higher Level,115,177
-Language B,Standard Level,209,208
-Language ab initio,Standard Level,111,5
-Latin or Classical Greek,Higher Level,5,7
-Latin or Classical Greek,Standard Level,7,2
-Literature and performance,Standard Level,2,1
-Mathematics: AA,Higher Level,152,384
-Mathematics: AA,Standard Level,172,255
-Mathematics: AI,Higher Level,45,95
-Mathematics: AI,Standard Level,121,162
-Music,Standard Level,4,13
-Music,Higher Level,13,17
-Philosophy,Standard Level,13,8
-Philosophy,Higher Level,11,11
-Physics,Higher Level,131,304
-Physics,Standard Level,66,122
-Psychology,Higher Level,80,99
-Psychology,Standard Level,41,76
-SEHS,Higher Level,5,4
-SEHS,Standard Level,9,5
-Soc Anthropol,Higher Level,7,10
-Soc Anthropol,Standard Level,4,4
-Theatre,Higher Level,10,15
-Theatre,Standard Level,2,8
-Visual Arts,Standard Level,12,24
-Visual Arts,Higher Level,23,49
-World religions,Standard Level,2,5
+Subject,Level,Non-virgins,Virgins
+Biology,Higher Level,250.0,152.0
+Biology,Standard Level,107.0,63.0
+Business management,Higher Level,121.0,58.0
+Business management,Standard Level,71.0,37.0
+Chemistry,Higher Level,285.0,134.0
+Chemistry,Standard Level,154.0,80.0
+Computer science,Higher Level,104.0,35.0
+Computer science,Standard Level,34.0,15.0
+Dance,Higher Level,3.0,3.0
+Dance,Standard Level,0.0,1.0
+Design technology,Higher Level,15.0,6.0
+Design technology,Standard Level,8.0,3.0
+ES&S,Standard Level,93.0,54.0
+Economics,Higher Level,189.0,102.0
+Economics,Standard Level,129.0,54.0
+Geography,Higher Level,48.0,36.0
+Geography,Standard Level,40.0,25.0
+Global politics,Higher Level,32.0,28.0
+Global politics,Standard Level,14.0,9.0
+History,Higher Level,149.0,114.0
+History,Standard Level,95.0,47.0
+ITGS,Higher Level,11.0,3.0
+ITGS,Standard Level,12.0,5.0
+Language A: L&L,Higher Level,264.0,178.0
+Language A: L&L,Standard Level,383.0,174.0
+Language A: literature,Higher Level,166.0,96.0
+Language A: literature,Standard Level,172.0,94.0
+Language B,Higher Level,177.0,115.0
+Language B,Standard Level,428.0,209.0
+Language ab initio,Standard Level,208.0,111.0
+Latin or Classical Greek,Higher Level,5.0,5.0
+Latin or Classical Greek,Standard Level,7.0,7.0
+Literature and performance,Higher Level,2.0,0.0
+Literature and performance,Standard Level,1.0,2.0
+Mathematics: AA,Higher Level,384.0,152.0
+Mathematics: AA,Standard Level,255.0,172.0
+Mathematics: AI,Higher Level,95.0,45.0
+Mathematics: AI,Standard Level,162.0,121.0
+Music,Higher Level,13.0,13.0
+Music,Standard Level,17.0,4.0
+Philosophy,Higher Level,11.0,11.0
+Philosophy,Standard Level,8.0,13.0
+Physics,Higher Level,304.0,131.0
+Physics,Standard Level,122.0,66.0
+Psychology,Higher Level,99.0,80.0
+Psychology,Standard Level,76.0,41.0
+SEHS,Higher Level,4.0,5.0
+SEHS,Standard Level,5.0,9.0
+Soc Anthropol,Higher Level,10.0,7.0
+Soc Anthropol,Standard Level,4.0,4.0
+Theatre,Higher Level,15.0,10.0
+Theatre,Standard Level,8.0,2.0
+Visual Arts,Higher Level,49.0,23.0
+Visual Arts,Standard Level,24.0,12.0
+World religions,Standard Level,5.0,2.0
