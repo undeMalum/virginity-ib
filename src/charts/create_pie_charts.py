@@ -19,12 +19,29 @@ def create_pie_chart_all():
     def fill_percentage_and_value(x):
         return f"{x:.1f}%\n({total * x / 100:.0f})"
 
-    total_subject_level = pd.read_csv(ANSWERS_CSV)
-    virgins = total_subject_level.loc[total_subject_level['Virginity'] == "Yes",
-                                      total_subject_level.columns[1]].value_counts().to_dict()
-    nonvirgins = total_subject_level.loc[total_subject_level['Virginity'] == "No",
-                                         total_subject_level.columns[1]].value_counts().to_dict()
-    pie_chart_values = [virgins["Yes"], nonvirgins["No"]]
+    total = pd.read_csv(ANSWERS_CSV)
+
+    list_of_indices_to_exclude = []
+    for idx in range(4, 17, 2):
+        get_indices_to_exclude = total.index[
+                (
+                        ((total[total.columns[idx]] == "ES&S") & (total[total.columns[idx + 1]] == "Higher Level")) |
+                        ((total[total.columns[idx]] == "Language ab initio") & (
+                                    total[total.columns[idx + 1]] == "Higher Level"))
+                ) |
+                ((total[total.columns[idx]] == "World religions") & (total[total.columns[idx + 1]] == "Higher Level"))
+            ]
+        for value in get_indices_to_exclude.values:
+            list_of_indices_to_exclude.append(value)
+
+    virgins = total[
+        (~total.index.isin(list_of_indices_to_exclude)) & (total["Virginity"] == "Yes")
+    ]["Virginity"].value_counts()
+    nonvirgins = total[
+        (~total.index.isin(list_of_indices_to_exclude)) & (total["Virginity"] == "No")
+    ]["Virginity"].value_counts()
+
+    pie_chart_values = [virgins.values[0], nonvirgins.values[0]]
     total = pie_chart_values[0] + pie_chart_values[1]
     plt.pie(
         pie_chart_values,
@@ -94,6 +111,7 @@ def create_pie_chart_subject_level(subject: str, level: Levels):
 
 
 if __name__ == "__main__":
-    sub = get_all_subjects(ALL_ANSWERS)
-    create_pie_chart_subject(sub[9])
+    # sub = get_all_subjects(ALL_ANSWERS)
+    # create_pie_chart_subject(sub[9])
+    create_pie_chart_all()
     plt.show()
