@@ -1,25 +1,20 @@
+import math
+
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy import stats
 
 from src.paths.paths import ALL_ANSWERS
 
 df = pd.read_csv(ALL_ANSWERS)
 count_students = df["Virgins"] + df["Non-virgins"]
-# print(df.loc[count_students > 900])
 percentage = df.loc[count_students > 900]
 students_number_subject = df["Virgins"] + df["Non-virgins"]
 percentages = df["Virgins"] / students_number_subject * 100
 subject_percentage = pd.concat([df["Subject"], percentages], axis="columns")
 subject_percentage.columns = ["Subject", "Percentage"]
-# print(subject_percentage[count_students > 900])
-#
-# s = np.random.binomial(10, .5, 1000)
-# plt.bar(s)
-# plt.show()
 
-
-from scipy import stats
 # import matplotlib.pyplot as plt
 # setting the values
 # of n and p
@@ -35,9 +30,19 @@ def create_binomial_distribution(n, p):
     return r_values, dist
 
 
-r, d = create_binomial_distribution(n, p)
-r2, d2 = create_binomial_distribution(n, 0.412)
+r2, d2 = create_binomial_distribution(20, p)  # 0.412)
+
+# Plot between -10 and 10 with .001 steps.
+x_axis = np.arange(-20, 20, 0.01)
+# Calculating mean and standard deviation
+mean = 20 * p
+sd = math.sqrt(20*p*(1-p))
+
 # plotting the graph
-plt.bar(stats.zscore(r), d)  # stats.zscore(r_values)
-plt.bar(stats.zscore(r2), d2)
+bar1, bar2 = plt.subplots()
+bar2.bar(r2, d2)  # stats.zscore(r2)
+bar2.set_xlabel("Number of virgins")
+bar2.set_ylabel("Probability")
+bar2.plot(x_axis, stats.norm.pdf(x_axis, mean, sd), color="red")
+#plt.bar(r, d)  # stats.zscore(r_values), stats.zscore(r)
 plt.show()
