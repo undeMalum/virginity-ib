@@ -9,17 +9,14 @@ from src.paths.paths import ALL_ANSWERS
 
 df = pd.read_csv(ALL_ANSWERS)
 count_students = df["Virgins"] + df["Non-virgins"]
-percentage = df.loc[count_students > 900]
-students_number_subject = df["Virgins"] + df["Non-virgins"]
-percentages = df["Virgins"] / students_number_subject * 100
+percentages = (df["Virgins"] / count_students * 100) / 100
 subject_percentage = pd.concat([df["Subject"], percentages], axis="columns")
 subject_percentage.columns = ["Subject", "Percentage"]
 
-# import matplotlib.pyplot as plt
 # setting the values
 # of n and p
-n = students_number_subject.loc[subject_percentage["Subject"] == "Mathematics: AA"].item()
-p = subject_percentage.loc[subject_percentage["Subject"] == "Mathematics: AA"]["Percentage"].item() / 100
+n = count_students.loc[subject_percentage["Subject"] == "Mathematics: AA"].item()
+p = subject_percentage.loc[subject_percentage["Subject"] == "Mathematics: AA"]["Percentage"].item()
 
 
 def create_binomial_distribution(n, p):
