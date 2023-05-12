@@ -1,0 +1,17 @@
+[project]
+name = "virginity-ib"
+version = "0.0.1"
+description = "Data analysis and visualization of data from the IBDP Virginity survey."
+readme = "README.md"
+authors = [{ name = "undeMalum", email = "polakwmc@gazeta.pl" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["analysis", "visualization"]
+requires-python = ">=3.10"
+
+    [project.urls]
+    repository    = "https://github.com/undeMalum/virginity-ib"
