@@ -57,7 +57,7 @@ def create_all_chart_percentages():
     total_subject_level = pd.read_csv(ALL_ANSWERS)
 
     students_number_subject = total_subject_level["Virgins"] + total_subject_level["Non-virgins"]
-    percentages = total_subject_level["Virgins"] / students_number_subject * 100
+    percentages = total_subject_level["Virgins"] / students_number_subject
     subject_percentage = pd.concat([total_subject_level["Subject"], percentages], axis="columns")
     subject_percentage.columns = ["Subject", "Percentage"]
 
@@ -67,7 +67,7 @@ def create_all_chart_percentages():
     )
     bar.set_xlabel("Subjects")
     bar.set_ylabel("Percentage of virgins")
-    bar.yaxis.set_major_formatter(PercentFormatter(100))
+    bar.yaxis.set_major_formatter(PercentFormatter(1))
     bar.legend(["Virgins"])
     plt.title("Virginity percentage across all subjects")
     plt.xticks(
@@ -76,6 +76,7 @@ def create_all_chart_percentages():
         fontweight='light',
         fontsize='medium',
     )
+    plt.ylim(0, 1)
     plt.tight_layout()
     return plt
 
@@ -85,7 +86,7 @@ def create_subject_level_chart_percentage(level: Levels):
 
     subject_from_level = total_subject_level.loc[total_subject_level["Level"] == level.value]
     students_number_subject = subject_from_level["Virgins"] + subject_from_level["Non-virgins"]
-    percentages = subject_from_level["Virgins"] / students_number_subject * 100
+    percentages = subject_from_level["Virgins"] / students_number_subject
     subject_percentage = pd.concat([subject_from_level["Subject"], percentages], axis="columns")
     subject_percentage.columns = ["Subject", "Percentage"]
 
@@ -95,7 +96,7 @@ def create_subject_level_chart_percentage(level: Levels):
     )
     bar.set_xlabel("Subjects")
     bar.set_ylabel("Percentage of virgins")
-    bar.yaxis.set_major_formatter(PercentFormatter(100))
+    bar.yaxis.set_major_formatter(PercentFormatter(1))
     bar.legend(["Virgins"])
     plt.title(f"Virginity percentage across {level.value} subjects")
     plt.xticks(
@@ -104,6 +105,7 @@ def create_subject_level_chart_percentage(level: Levels):
         fontweight='light',
         fontsize='medium',
     )
+    plt.ylim(0, 1)
     plt.tight_layout()
     return plt
 
