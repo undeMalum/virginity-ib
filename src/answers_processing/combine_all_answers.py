@@ -14,9 +14,13 @@ df = pd.read_csv(ANSWERS_CSV)
 def write_total(virgin: bool):
     series_storage = []
     virginity = {False: "No", True: "Yes"}
-    for idx in range(4, 17, 2):
+    # count the number of occurrences of each subject within each subject column
+    first_subject_column_in_survey_answers = 4
+    last_subject_column_in_survey_answers = 17
+    for idx in range(first_subject_column_in_survey_answers, last_subject_column_in_survey_answers, 2):
         count_subjects = df.loc[
-            (df['Virginity'] == virginity[virgin]) &
+            (df['Virginity'] == virginity[virgin])
+            &  # there is no such thing like the following courses on HL and all responses with them need to be erased
             ~(
                 (
                     ((df[df.columns[idx]] == "ES&S") & (df[df.columns[idx+1]] == "Higher Level")) |
@@ -27,12 +31,14 @@ def write_total(virgin: bool):
             df.columns[idx]].value_counts()
         series_storage.append(count_subjects)
 
+    # concat subjects from each column
     concatenated_subjects = pd.concat(series_storage).sort_index()
 
+    # count the number of occurrences of each subject in the survey
     already_added = []
     subjects = []
     for subject in concatenated_subjects.items():
-        if subject[0] not in already_added:
+        if subject[0] not in already_added:  # avoid counting the same subject multiple times
             already_added.append(subject[0])
             subjects.append((subject[0], concatenated_subjects.loc[subject[0]].sum()))
 
@@ -42,7 +48,6 @@ def write_total(virgin: bool):
 
 
 def create_csv_all(csv_path: Path):
-    # pd.set_option('display.max_rows', None, 'display.max_columns', None)
     total_virgins = write_total(False)
     total_nonvirgins = write_total(True)
 

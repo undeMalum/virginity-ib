@@ -14,27 +14,31 @@ df = pd.read_csv(ANSWERS_CSV)
 def write_total(virgin: bool):
     series_storage = []
     virginity = {False: "No", True: "Yes"}
-    for idx in range(4, 17, 2):
+    # count the number of occurrences of each subject with level within each subject column
+    first_subject_column_in_survey_answers = 4
+    last_subject_column_in_survey_answers = 17
+    for idx in range(first_subject_column_in_survey_answers, last_subject_column_in_survey_answers, 2):
         count_subjects = df.loc[
             (df['Virginity'] == virginity[virgin])
-            &
+            &  # there is no such thing like the following courses on HL and all responses with them need to be erased
             ~(
                 (
                     ((df[df.columns[idx]] == "ES&S") & (df[df.columns[idx + 1]] == "Higher Level")) |
                     ((df[df.columns[idx]] == "Language ab initio") & (df[df.columns[idx + 1]] == "Higher Level"))
                 ) |
                 ((df[df.columns[idx]] == "World religions") & (df[df.columns[idx + 1]] == "Higher Level"))
-            )
-            ,
+            ),
             df.columns[idx:idx+2]].value_counts()
         series_storage.append(count_subjects)
 
+    # concat subjects with levels from each column
     concatenated_subjects = pd.concat(series_storage).sort_index()
 
+    # count the number of occurrences of each subject with level in the survey
     already_added = []
     subjects = []
     for subject in concatenated_subjects.items():
-        if (subject[0][0], subject[0][1]) not in already_added:
+        if (subject[0][0], subject[0][1]) not in already_added:  # avoid counting the same subject multiple times
             already_added.append((subject[0][0], subject[0][1]))
             subjects.append((subject[0][0], subject[0][1], concatenated_subjects.loc[subject[0]].sum()))
 

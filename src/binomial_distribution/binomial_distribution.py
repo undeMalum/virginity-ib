@@ -7,10 +7,9 @@ from scipy import stats
 
 from src.paths.paths import ALL_ANSWERS
 
-df = pd.read_csv(ALL_ANSWERS)
-
 
 def get_virgin_percentage_for_subject(subject: str):
+    df = pd.read_csv(ALL_ANSWERS)
     # get the percentage of virgins for each subject
     count_students = df["Virgins"] + df["Non-virgins"]
     percentages = df["Virgins"] / count_students
@@ -31,22 +30,21 @@ def create_binomial_distribution(n: int, p: int):
 
 # setting the values for binomial distribution: n (number of students in an imaginary class)
 # and p (percentage of virgins)
-NUMBER_OF_STUDENTS = 20
+number_of_students = 20
 virgin_percentage = get_virgin_percentage_for_subject("Mathematics: AA")
-number_of_successes, distribution = create_binomial_distribution(NUMBER_OF_STUDENTS, virgin_percentage)
+number_of_successes, distribution = create_binomial_distribution(number_of_students, virgin_percentage)
 
 # plot for bell curve
-x_axis = np.arange(0, NUMBER_OF_STUDENTS, 0.01)
+x_axis = np.arange(0, number_of_students, 0.01)
 # calculate mean and standard deviation
-mean = NUMBER_OF_STUDENTS * virgin_percentage
-standard_deviation = math.sqrt(NUMBER_OF_STUDENTS*virgin_percentage*(1-virgin_percentage))
+mean = number_of_students * virgin_percentage
+standard_deviation = math.sqrt(number_of_students * virgin_percentage * (1 - virgin_percentage))
 
 if __name__ == "__main__":
     # plotting the graph
-    bar1, bar2 = plt.subplots()
-    bar2.bar(number_of_successes, distribution)  # stats.zscore(number_of_successes)
-    bar2.set_xlabel("Number of virgins")
-    bar2.set_ylabel("Probability")
-    bar2.plot(x_axis, stats.norm.pdf(x_axis, mean, standard_deviation), color="red")
-    # plt.bar(r, d)  # stats.zscore(r_values), stats.zscore(r)
+    binom_dist, bell_curve = plt.subplots()
+    bell_curve.bar(number_of_successes, distribution)
+    bell_curve.set_xlabel("Number of virgins")
+    bell_curve.set_ylabel("Probability")
+    bell_curve.plot(x_axis, stats.norm.pdf(x_axis, mean, standard_deviation), color="red")
     plt.show()
